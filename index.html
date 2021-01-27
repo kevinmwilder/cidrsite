@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDR Page</title>
+    <script src="./bundle.js"></script>
+    <h1>Simple CIDR Calculator</h1>
+
+    <style>
+        .err {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <p>CIDR Range <input type="text" id="cidrRange">
+        <button onclick="process()">Calculate</button>
+        IP Range Lowest <input type="text" id="ipRangeLowest"> -
+        IP Range Highest <input type="text" id="ipRangeHighest">
+    </p>
+    <p class="err" id="err97"></p>
+    <script>
+        function process() {
+            //document.getElementById("ipRangeLowest").value = document.getElementById("cidrRange").value;
+            //document.getElementById("ipRangeHighest").value = document.getElementById("cidrRange").value;
+
+            let cidrExpr = document.getElementById("cidrRange").value;
+            try {
+                let parts = cidr().expandCIDR(cidrExpr);
+                document.getElementById("ipRangeLowest").value = parts.lowIP;
+                document.getElementById("ipRangeHighest").value = parts.highIP;
+                document.getElementById("err97").innerText = "";
+            } catch (cidrError) {
+                document.getElementById("err97").innerText = cidrError;
+                document.getElementById("ipRangeLowest").value = "";
+                document.getElementById("ipRangeHighest").value = "";
+            }
+        }
+    </script>
+</body>
+
+</html>
